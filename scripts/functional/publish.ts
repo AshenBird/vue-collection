@@ -90,10 +90,10 @@ export const publish = async ()=>{
     process.exit(0)
   }
   // check
-  if(!checkGit()){
-    logger.error(`Some files have not commit. Please commit first.`)
-    process.exit(0)
-  }
+  // if(!checkGit()){
+  //   logger.error(`Some files have not commit. Please commit first.`)
+  //   process.exit(0)
+  // }
   // 构建一下
   await build()
   // 更新包信息
@@ -101,7 +101,7 @@ export const publish = async ()=>{
   await fixVersion(version)
 
   // 发布
-  spawnSync("pnpm",["publish","--access","public","--tag","latest"],{
-    stdio:['inherit','inherit','inherit']
-  })
+  // spawnSync("pnpm",["publish","--access","public","--tag","latest"],{
+  //   stdio:['inherit','inherit','inherit']
+  // })
 }
