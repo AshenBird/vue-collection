@@ -10,10 +10,11 @@ const distPath = pathJoin(root, "lib");
 const sourcePath = pathJoin(root, "src/source");
 const baseBuildOption: BuildOptions = {
   bundle: false,
-  jsx: 'transform',
+  jsx: 'automatic',//'transform',
   jsxFactory: 'h',
   jsxFragment: 'Fragment',
-  jsxImportSource:"vue"
+  jsxImportSource:"vue",
+  
 };
 
 const preBuild = () => {
