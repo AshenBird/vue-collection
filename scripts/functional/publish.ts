@@ -59,7 +59,7 @@ const checkGit = ()=>{
   })
   console.debug(typeof child.stdout)
   const records = child.stdout.split("\n").filter(item=>!!item).map(item=>item.split(" "));
-  if(records.some(([flag])=>flag==="??")){
+  if(records.some(([flag])=>["??","M"].includes(flag))){
     return false
   }
   return true
@@ -72,6 +72,7 @@ const fixVersion = async (version:string)=>{
   spawnSync("git",['tag',`v${version}`,],{
     stdio:['inherit','inherit','inherit']
   })
+  console.debug("commit finish")
 }
 export const publish = async ()=>{
   /*---------------------- */
