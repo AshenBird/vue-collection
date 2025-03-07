@@ -1,0 +1,6 @@
+{
+  ".":"index",
+  "./browser":"browser",
+  "./echarts":"echarts",
+  "./mount-provider":"mount-provider"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "@mcswift/common-provider",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsx scripts/commands/build.ts",
+    "emit": "tsc --rootDir src/source --outDir lib/types --declaration --emitDeclarationOnly -p tsconfig.build.json",
+    "preview": "vite preview",
+    "publish": "tsx scripts/commands/publish.ts"
+  },
+  "devDependencies": {
+    "@mcswift/base-utils": "^1.0.15",
+    "@mcswift/cli": "^1.0.14",
+    "@mcswift/npm": "^1.0.15",
+    "@mcswift/tsc": "^1.0.14",
+    "@mcswift/types": "^1.0.14",
+    "@mcswift/utils": "^1.0.16",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.9",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/tsconfig": "^0.7.0",
+    "esbuild": "^0.25.0",
+    "fs-extra": "^11.3.0",
+    "naive-ui": "^2.41.0",
+    "simple-git": "^3.27.0",
+    "tsx": "^4.19.3",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.4"
+  },
+  "optionalDependencies": {
+    "echarts": "^5.6.0",
+    "marked": "^15.0.7",
+    "vue": "^3.5.13"
+  },
+  "types": "lib/types/index.d.ts",
+  "main": "lib/es/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.cjs"
+    },
+    "./browser": {
+      "types": "./lib/types/browser.d.ts",
+      "import": "./lib/esm/browser.js",
+      "require": "./lib/cjs/browser.cjs"
+    },
+    "./echarts": {
+      "types": "./lib/types/echarts.d.ts",
+      "import": "./lib/esm/echarts.js",
+      "require": "./lib/cjs/echarts.cjs"
+    },
+    "./mount-provider": {
+      "types": "./lib/types/mount-provider.d.ts",
+      "import": "./lib/esm/mount-provider.js",
+      "require": "./lib/cjs/mount-provider.cjs"
+    }
+  }
+}
