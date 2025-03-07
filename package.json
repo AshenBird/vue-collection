@@ -1,5 +1,5 @@
 {
-  "name": "@mcswift/common-provider",
+  "name": "@mcswift/vue-collection",
   "version": "0.0.10",
   "type": "module",
   "scripts": {
