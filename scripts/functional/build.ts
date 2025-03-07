@@ -10,6 +10,9 @@ const distPath = pathJoin(root, "lib");
 const sourcePath = pathJoin(root, "src/source");
 const baseBuildOption: BuildOptions = {
   bundle: false,
+  jsx: 'transform',
+  jsxFactory: 'h',
+  jsxFragment: 'Fragment'
 };
 
 const preBuild = () => {
