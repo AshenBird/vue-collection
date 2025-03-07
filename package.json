@@ -7,7 +7,7 @@
     "build": "tsx scripts/commands/build.ts",
     "emit": "tsc --rootDir src/source --outDir lib/types --declaration --emitDeclarationOnly -p tsconfig.build.json",
     "preview": "vite preview",
-    "publish": "tsx scripts/commands/publish.ts"
+    "pub": "tsx scripts/commands/publish.ts"
   },
   "devDependencies": {
     "@mcswift/base-utils": "^1.0.15",
