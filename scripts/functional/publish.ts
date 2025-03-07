@@ -70,7 +70,7 @@ const fixVersion = async (version:string)=>{
     maxConcurrentProcesses: 6,
     trimmed: false,
   })
-  git.commit(`publish`)
+  git.commit(`publish v${version}`)
 }
 export const publish = async ()=>{
   /*---------------------- */
@@ -96,8 +96,8 @@ export const publish = async ()=>{
   // 构建一下
   await build()
   // 更新包信息
-  await tidy(updateLevel)
-  await fixVersion
+  const version = await tidy(updateLevel)
+  await fixVersion(version)
   // 发布
   spawn("pnpm",["publish","--access","public","--tag","latest"])
 }
