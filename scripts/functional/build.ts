@@ -12,7 +12,8 @@ const baseBuildOption: BuildOptions = {
   bundle: false,
   jsx: 'transform',
   jsxFactory: 'h',
-  jsxFragment: 'Fragment'
+  jsxFragment: 'Fragment',
+  jsxImportSource:"vue"
 };
 
 const preBuild = () => {
