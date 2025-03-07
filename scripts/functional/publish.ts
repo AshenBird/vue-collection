@@ -41,11 +41,11 @@ const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
   ])
   let [major,minor,patch] = (info.version as string).split('.')
   if(["fix","opt"].includes(level)){
-    patch += 1
+    patch= (parseInt(patch)+1).toString()
   }else if (level==="feature"){
-    minor+=1
+    minor=(parseInt(patch)+1).toString()
   }else{
-    major+=1
+    major=(parseInt(patch)+1).toString()
   }
   const version = [major,minor,patch].join('.')
   pack.setPackageInfo("version",version)
@@ -62,6 +62,15 @@ const checkGit = ()=>{
     return false
   }
   return true
+}
+const fixVersion = async (version:string)=>{
+  const git = Git({
+    baseDir: root,
+    binary: "git",
+    maxConcurrentProcesses: 6,
+    trimmed: false,
+  })
+  git.commit(`publish`)
 }
 export const publish = async ()=>{
   /*---------------------- */
@@ -88,6 +97,7 @@ export const publish = async ()=>{
   await build()
   // 更新包信息
   await tidy(updateLevel)
+  await fixVersion
   // 发布
   spawn("pnpm",["publish","--access","public","--tag","latest"])
 }
