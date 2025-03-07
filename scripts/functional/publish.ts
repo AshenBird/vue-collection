@@ -5,7 +5,7 @@ import { Logger } from "@mcswift/base-utils";
 import { build } from "./build";
 import { NpmPackage } from "@mcswift/npm";
 import{ spawn, spawnSync }from "node:child_process"
-import Git from "simple-git"
+// import Git from "simple-git"
 const logger = new Logger(" Publish Command ")
 const root = process.cwd();
 const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
@@ -57,6 +57,7 @@ const checkGit = ()=>{
   ],{
     encoding:"utf-8"
   })
+  console.debug(typeof child.stdout)
   const records = child.stdout.split("\n").filter(item=>!!item).map(item=>item.split(" "));
   if(records.some(([flag])=>flag==="??")){
     return false
@@ -65,8 +66,12 @@ const checkGit = ()=>{
 }
 const fixVersion = async (version:string)=>{
   const message = `publish v${version}`
-  spawnSync("git",['commit','-a',"--message",message,])
-  spawnSync("git",['tag',`v${version}`,])
+  spawnSync("git",['commit','-a',"--message",message,],{
+    stdio:['inherit','inherit','inherit']
+  })
+  spawnSync("git",['tag',`v${version}`,],{
+    stdio:['inherit','inherit','inherit']
+  })
 }
 export const publish = async ()=>{
   /*---------------------- */
@@ -94,6 +99,7 @@ export const publish = async ()=>{
   // 更新包信息
   const version = await tidy(updateLevel)
   await fixVersion(version)
+
   // 发布
   spawn("pnpm",["publish","--access","public","--tag","latest"])
 }
