@@ -64,13 +64,9 @@ const checkGit = ()=>{
   return true
 }
 const fixVersion = async (version:string)=>{
-  const git = Git({
-    baseDir: root,
-    binary: "git",
-    maxConcurrentProcesses: 6,
-    trimmed: false,
-  })
-  git.commit(`publish v${version}`)
+  const message = `publish v${version}`
+  spawnSync("git",['commit','-a',"--message",message,])
+  spawnSync("git",['tag',`v${version}`,])
 }
 export const publish = async ()=>{
   /*---------------------- */
