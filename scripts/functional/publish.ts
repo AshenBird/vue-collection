@@ -71,7 +71,7 @@ const fixVersion = async (version:string)=>{
   spawnSync("git",['tag',`v${version}`,],{
     stdio:['inherit','inherit','inherit']
   })
-  console.debug("commit finish")
+  logger.info("commit finish")
 }
 export const publish = async ()=>{
   /*---------------------- */
