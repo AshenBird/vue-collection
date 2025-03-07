@@ -4,7 +4,7 @@ import Meta from "../../meta.json";
 import { Logger } from "@mcswift/base-utils";
 import { build } from "./build";
 import { NpmPackage } from "@mcswift/npm";
-import{ spawn, spawnSync }from "node:child_process"
+import{ spawnSync }from "node:child_process"
 // import Git from "simple-git"
 const logger = new Logger(" Publish Command ")
 const root = process.cwd();
@@ -83,16 +83,19 @@ export const publish = async ()=>{
   if(!updateLevel){
     logger.error(`Can't find "level" param, "level" can be "fix"|"opt"|"feature"|"break".`)
     process.exit(0)
+    return
   }
   const levelValues = ["fix","opt","feature","break"]
   if(!levelValues.includes(updateLevel)){
     logger.error(`Illegal level value "${updateLevel}", "level" can be "fix"|"opt"|"feature"|"break".`)
     process.exit(0)
+    return
   }
   // check
   if(!checkGit()){
     logger.error(`Some files have not commit. Please commit first.`)
     process.exit(0)
+    return
   }
   // 构建一下
   await build()
