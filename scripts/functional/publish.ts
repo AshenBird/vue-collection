@@ -57,8 +57,7 @@ const checkGit = ()=>{
   ],{
     encoding:"utf-8"
   })
-  console.debug(typeof child.stdout)
-  const records = child.stdout.split("\n").filter(item=>!!item).map(item=>item.split(" "));
+  const records = child.stdout.split("\n").filter(item=>!!item).map(item=>item.trim().split(" "));
   if(records.some(([flag])=>["??","M"].includes(flag))){
     return false
   }
@@ -102,5 +101,7 @@ export const publish = async ()=>{
   await fixVersion(version)
 
   // 发布
-  spawn("pnpm",["publish","--access","public","--tag","latest"])
+  spawnSync("pnpm",["publish","--access","public","--tag","latest"],{
+    stdio:['inherit','inherit','inherit']
+  })
 }
