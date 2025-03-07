@@ -44,8 +44,11 @@ const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
     patch= (parseInt(patch)+1).toString()
   }else if (level==="feature"){
     minor=(parseInt(patch)+1).toString()
+    patch='0'
   }else{
     major=(parseInt(patch)+1).toString()
+    minor='0'
+    patch='0'
   }
   const version = [major,minor,patch].join('.')
   pack.setPackageInfo("version",version)
