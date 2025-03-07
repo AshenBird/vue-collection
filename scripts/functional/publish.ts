@@ -101,7 +101,8 @@ export const publish = async ()=>{
   await fixVersion(version)
 
   // 发布
-  // spawnSync("pnpm",["publish","--access","public","--tag","latest"],{
-  //   stdio:['inherit','inherit','inherit']
-  // })
+  spawnSync("pnpm",["publish","--access","public","--tag","latest"],{
+    stdio:['inherit','inherit','inherit'],
+    cwd:root
+  })
 }
