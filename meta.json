@@ -3,5 +3,6 @@
   "./browser":"browser",
   "./echarts":"echarts",
   "./mount-provider":"mount-provider",
-  "./markdown":"markdown"
+  "./markdown":"markdown",
+  "./utils":"utils/index"
 }

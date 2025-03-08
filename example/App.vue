@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MountProvider, defineProvider } from "../source/index";
+import { MountProvider, defineProvider } from "../src/source/index";
 import {
   NModalProvider,
   NConfigProvider,

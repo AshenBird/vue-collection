@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { useMessage } from 'naive-ui';
 import { onMounted, ref } from 'vue';
-import { useMount } from "../source/index";
+import { useMount } from "../src/source/index";
 import ComponentB from "./ComponentB.vue";
 const Message = useMessage();
 const mount = useMount();
