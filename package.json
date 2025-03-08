@@ -29,12 +29,12 @@
     "tsx": "^4.19.3",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
-    "vue-tsc": "^2.2.4"
+    "vue-tsc": "^2.2.4",
+    "vue": "^3.5.13"
   },
   "optionalDependencies": {
     "echarts": "^5.6.0",
-    "marked": "^15.0.7",
-    "vue": "^3.5.13"
+    "marked": "^15.0.7"
   },
   "types": "lib/types/index.d.ts",
   "main": "lib/es/index.js",
@@ -62,5 +62,8 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.13"
+  }
 }

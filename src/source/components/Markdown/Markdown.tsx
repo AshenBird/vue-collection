@@ -3,11 +3,13 @@ import {
   computed,
   defineComponent,
   onMounted,
+  ref,
   useTemplateRef,
+  watch,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-
+import {  } from "@vue/runtime-core"
 const props = {
   content: {
     required: true,
@@ -24,9 +26,10 @@ export type MarkdownProps = ExtractPropTypes<typeof props>;
 export const Markdown = defineComponent({
   props,
   setup(props) {
-    const parsedContent = computed(() => {
-      return marked.parse(props.content);
-    });
+    const parsedContent = ref("")
+    
+    const hasMounted = ref(false)
+        
     const containerRef = useTemplateRef<HTMLElement>("container");
     const className = computed(()=>{
       const result:string[] = ["--markdown"]
@@ -38,15 +41,31 @@ export const Markdown = defineComponent({
       result.push(...props.className)
       return result
     })
+
+    
+    const mountContent = ()=>{
+      const el = containerRef.value
+      if(!el)return
+      el.innerHTML = `
+        <style>
+          max-width: 100%;
+        </style>
+        ${
+          parsedContent.value
+        }
+      `
+    }
     onMounted(()=>{
       if(!containerRef.value)return
-      // 样式优化
-      const styleEl = document.createElement("style")
-      styleEl.innerText = `
-        max-width: 100%;
-      `
-      containerRef.value.append(styleEl)
+      mountContent();
     });
+    watch(()=>props.content,async (n,o)=>{
+      if(n===o)return;
+      parsedContent.value = await marked.parse(n);
+      mountContent();
+    },{
+      immediate:true
+    })
     return {
       parsedContent,
       containerRef,
@@ -54,15 +73,12 @@ export const Markdown = defineComponent({
     };
   },
   render() {
-    const { className,parsedContent } = this;
+    const { className } = this;
     return (
       <div
         ref="container"
         class={className}
       >
-        {
-          parsedContent
-        }
       </div>
     );
   },
