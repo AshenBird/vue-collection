@@ -26,7 +26,7 @@ const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
         name,
         {
           import: getPath( "esm", _entry),
-          require: getPath( "cjs", _entry),
+          // require: getPath( "cjs", _entry),
           types: getPath( "types", _entry),
         },
       ];

@@ -4,6 +4,7 @@ import { join as pathJoin } from "node:path";
 import { emptyDirSync, ensureDirSync } from "fs-extra";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { generatorDeclare } from "@mcswift/tsc";
+import oxcParser from "oxc-parser";
 import { Logger } from "@mcswift/base-utils";
 const root = process.cwd();
 const distPath = pathJoin(root, "lib");
@@ -34,7 +35,7 @@ const collect = (dir = sourcePath, result: string[] = []) => {
 };
 const entryPoints = collect();
 
-const formatList = ["cjs", "esm"] as const;
+const formatList = ["esm"] as const;
 const tasksGenerator = () => {
   const result: Promise<unknown>[] = [];
 
@@ -70,6 +71,24 @@ const appendImport = async () => {
     // console.debug(path)
     const prefix = `import { h,Fragment } from "vue" \n`;
     const content = readFileSync(path, { encoding: "utf-8" });
+    const parseResult = oxcParser.parseSync(path, content);
+    if(parseResult.program.body.some((item) => {
+      if (item.type !== "ImportDeclaration") return false;
+      // console.debug("specifiers", item.specifiers);
+      if (item.source.value !== "vue") false;
+      if (
+        item.specifiers.some(
+          (sp) =>
+            sp.type === "ImportSpecifier" &&
+            sp.imported.type === "Identifier" &&
+            sp.imported.name === "h"
+        )
+      )
+        return true;
+      return false;
+    })){
+      return
+    };
     const result = prefix + content;
     writeFileSync(path, result, { encoding: "utf-8" });
   };
