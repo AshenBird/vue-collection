@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/vue-collection",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -63,6 +63,10 @@
     "./markdown": {
       "import": "./lib/esm/markdown.js",
       "types": "./lib/types/markdown.d.ts"
+    },
+    "./utils": {
+      "import": "./lib/esm/utils/index.js",
+      "types": "./lib/types/utils/index.d.ts"
     }
   },
   "files": [
