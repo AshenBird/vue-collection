@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   h,
+  onMounted,
   useTemplateRef,
   type ExtractPropTypes,
   type PropType,
@@ -27,7 +28,7 @@ export const Markdown = defineComponent({
     const parsedContent = computed(() => {
       return marked.parse(props.content);
     });
-    const containerRef = useTemplateRef("container");
+    const containerRef = useTemplateRef<HTMLElement>("container");
     const className = computed(()=>{
       const result:string[] = ["--markdown"]
       if(!props.className)return result
@@ -37,6 +38,15 @@ export const Markdown = defineComponent({
       }
       result.push(...props.className)
       return result
+    })
+    onMounted(()=>{
+      if(!containerRef.value)return
+      // 样式优化
+      const styleEl = document.createElement("style")
+      styleEl.innerText = `
+        max-width: 100%;
+      `
+      containerRef.value.append(styleEl)
     })
     return {
       parsedContent,
