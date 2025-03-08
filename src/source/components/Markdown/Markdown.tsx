@@ -2,7 +2,6 @@ import { marked } from "marked";
 import {
   computed,
   defineComponent,
-  h,
   onMounted,
   useTemplateRef,
   type ExtractPropTypes,
