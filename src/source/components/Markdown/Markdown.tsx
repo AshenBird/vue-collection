@@ -9,7 +9,6 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
-  normalizeStyle,
 } from "vue";
 import { normalizeStyleText } from "../../utils";
 const props = {
