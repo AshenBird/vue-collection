@@ -47,7 +47,7 @@ export const Markdown = defineComponent({
       if(!el)return
       el.innerHTML = `
         <style>
-          max-width: 100%;
+          img{max-width: 100%;}
         </style>
         ${
           parsedContent.value
