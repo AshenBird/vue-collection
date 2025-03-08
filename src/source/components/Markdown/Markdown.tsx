@@ -57,6 +57,7 @@ export const Markdown = defineComponent({
     onMounted(()=>{
       if(!containerRef.value)return
       mountContent();
+      hasMounted.value =true
     });
     watch(()=>props.content,async (n,o)=>{
       if(n===o)return;
