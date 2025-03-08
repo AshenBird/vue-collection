@@ -9,7 +9,6 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import {  } from "@vue/runtime-core"
 const props = {
   content: {
     required: true,
