@@ -1,4 +1,4 @@
-# @mcswift/vue-collect
+# @mcswift/vue-collection
 
 ## Install
 
