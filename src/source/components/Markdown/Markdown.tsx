@@ -47,7 +47,7 @@ export const Markdown = defineComponent({
         max-width: 100%;
       `
       containerRef.value.append(styleEl)
-    })
+    });
     return {
       parsedContent,
       containerRef,
@@ -62,7 +62,7 @@ export const Markdown = defineComponent({
         class={className}
       >
         {
-          h(parsedContent)
+          parsedContent
         }
       </div>
     );
