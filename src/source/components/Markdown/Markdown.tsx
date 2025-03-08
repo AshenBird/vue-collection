@@ -6,8 +6,10 @@ import {
   ref,
   useTemplateRef,
   watch,
+  type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  normalizeStyle
 } from "vue";
 const props = {
   content: {
@@ -18,6 +20,10 @@ const props = {
     required: false,
     type: [String, Array] as PropType<string | string[]>,
   },
+  aStyle:{
+    required: false,
+    type: [String, Object] as PropType<string | CSSProperties>,
+  }
 } as const;
 
 export type MarkdownProps = ExtractPropTypes<typeof props>;
@@ -43,11 +49,13 @@ export const Markdown = defineComponent({
 
     
     const mountContent = ()=>{
+      const aStyleString = props.aStyle?typeof props.aStyle==="string"?props.aStyle:normalizeStyle(props.aStyle):""
       const el = containerRef.value
       if(!el)return
       el.innerHTML = `
         <style>
           img{max-width: 100%;}
+          a{${aStyleString}}
         </style>
         ${
           parsedContent.value
