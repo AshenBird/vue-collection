@@ -4,8 +4,8 @@ import { join as pathJoin } from "node:path";
 import { emptyDirSync, ensureDirSync } from "fs-extra";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { generatorDeclare } from "@mcswift/tsc";
-import oxcParser from "oxc-parser";
 import { Logger } from "@mcswift/base-utils";
+import { checkImport } from "../utils";
 const root = process.cwd();
 const distPath = pathJoin(root, "lib");
 const sourcePath = pathJoin(root, "src/source");
@@ -69,27 +69,39 @@ const tasksGenerator = () => {
 const appendImport = async () => {
   const append = async (path: string) => {
     // console.debug(path)
-    const prefix = `import { h,Fragment } from "vue" \n`;
-    const content = readFileSync(path, { encoding: "utf-8" });
-    const parseResult = oxcParser.parseSync(path, content);
-    if(parseResult.program.body.some((item) => {
-      if (item.type !== "ImportDeclaration") return false;
-      // console.debug("specifiers", item.specifiers);
-      if (item.source.value !== "vue") false;
-      if (
-        item.specifiers.some(
-          (sp) =>
-            sp.type === "ImportSpecifier" &&
-            sp.imported.type === "Identifier" &&
-            sp.imported.name === "h"
-        )
-      )
-        return true;
-      return false;
-    })){
-      return
-    };
-    const result = prefix + content;
+    const code = readFileSync(path, { encoding: "utf-8" });
+    const members: string[] = [];
+    for (const member of ["h", "Fragment"]) {
+      const statement = !checkImport({
+        path,
+        code,
+        member,
+        package: "vue",
+      });
+      if (statement) continue;
+      members.push(member);
+    }
+
+    // if(parseResult.program.body.some((item) => {
+    //   if (item.type !== "ImportDeclaration") return false;
+    //   // console.debug("specifiers", item.specifiers);
+    //   if (item.source.value !== "vue") false;
+    //   if (
+    //     item.specifiers.some(
+    //       (sp) =>
+    //         sp.type === "ImportSpecifier" &&
+    //         sp.imported.type === "Identifier" &&
+    //         sp.imported.name === "h"
+    //     )
+    //   )
+    //     return true;
+    //   return false;
+    // })){
+    //   return
+    // };
+    if (members.length === 0) return;
+    const prefix = `import { ${members.join(",")} } from "vue" \n`;
+    const result = prefix + code;
     writeFileSync(path, result, { encoding: "utf-8" });
   };
   const list: string[] = [];
