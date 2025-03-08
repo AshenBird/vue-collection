@@ -9,8 +9,9 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
-  normalizeStyle
+  normalizeStyle,
 } from "vue";
+import { normalizeStyleText } from "../../utils";
 const props = {
   content: {
     required: true,
@@ -49,7 +50,7 @@ export const Markdown = defineComponent({
 
     
     const mountContent = ()=>{
-      const aStyleString = props.aStyle?typeof props.aStyle==="string"?props.aStyle:normalizeStyle(props.aStyle):""
+      const aStyleString = normalizeStyleText(props.aStyle)
       const el = containerRef.value
       if(!el)return
       el.innerHTML = `

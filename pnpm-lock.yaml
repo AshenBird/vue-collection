@@ -43,6 +43,9 @@ devDependencies:
   '@vitejs/plugin-vue-jsx':
     specifier: ^4.1.1
     version: 4.1.1(vite@6.2.0)(vue@3.5.13)
+  '@vue/shared':
+    specifier: ^3.5.13
+    version: 3.5.13
   '@vue/tsconfig':
     specifier: ^0.7.0
     version: 0.7.0(typescript@5.8.2)(vue@3.5.13)
