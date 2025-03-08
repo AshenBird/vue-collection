@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/vue-collection",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -41,27 +41,22 @@
   "exports": {
     ".": {
       "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.cjs",
       "types": "./lib/types/index.d.ts"
     },
     "./browser": {
       "import": "./lib/esm/browser.js",
-      "require": "./lib/cjs/browser.cjs",
       "types": "./lib/types/browser.d.ts"
     },
     "./echarts": {
       "import": "./lib/esm/echarts.js",
-      "require": "./lib/cjs/echarts.cjs",
       "types": "./lib/types/echarts.d.ts"
     },
     "./mount-provider": {
       "import": "./lib/esm/mount-provider.js",
-      "require": "./lib/cjs/mount-provider.cjs",
       "types": "./lib/types/mount-provider.d.ts"
     },
     "./markdown": {
       "import": "./lib/esm/markdown.js",
-      "require": "./lib/cjs/markdown.cjs",
       "types": "./lib/types/markdown.d.ts"
     }
   },
