@@ -1,4 +1,4 @@
-import { Marked, marked } from "marked";
+import { marked } from "marked";
 import {
   computed,
   defineComponent,
