@@ -82,7 +82,7 @@ export const publish = async ()=>{
   const [ _nodePath, _scriptPath, ...args ] = process.argv;
   const options = resolveCliOption(args);
   const updateLevel =  options.level as "fix"|"opt"|"feature"|"break"|undefined
-  const tag =  options.tag as "alpha"|"beta"|"rc"|undefined
+  // const tag =  options.tag as "alpha"|"beta"|"rc"|undefined
   if(!updateLevel){
     logger.error(`Can't find "level" param, "level" can be "fix"|"opt"|"feature"|"break".`)
     process.exit(0)

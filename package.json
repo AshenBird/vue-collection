@@ -8,6 +8,7 @@
     "emit": "tsc --rootDir src/source --outDir lib/types --declaration --emitDeclarationOnly -p tsconfig.build.json",
     "preview": "vite preview",
     "pub": "tsx scripts/commands/publish.ts",
+    "lint": "oxlint",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -27,8 +28,11 @@
     "@vue/tsconfig": "^0.7.0",
     "esbuild": "^0.25.0",
     "fs-extra": "^11.3.0",
+    "lint-staged": "^15.4.3",
     "naive-ui": "^2.41.0",
     "oxc-parser": "^0.56.5",
+    "oxc-transform": "^0.56.5",
+    "oxlint": "^0.15.13",
     "simple-git": "^3.27.0",
     "tsx": "^4.19.3",
     "typescript": "~5.8.2",
@@ -74,5 +78,8 @@
   ],
   "peerDependencies": {
     "vue": "^3.5.13"
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
   }
 }

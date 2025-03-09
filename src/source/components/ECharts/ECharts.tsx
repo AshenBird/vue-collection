@@ -26,9 +26,7 @@ const props = {
 
 export type EChartsComponentProps = ExtractPropTypes<typeof props>;
 
-export const EChartsComponent = defineComponent({
-  props,
-  setup(props) {
+export const EChartsComponent = defineComponent<EChartsComponentProps>((props,ctx)=>{
     const containerRef = useTemplateRef<HTMLElement>("container");
     let _instance: ECharts | null = null;
     onMounted(() => {
@@ -62,20 +60,18 @@ export const EChartsComponent = defineComponent({
     const getInstance = () => {
       return _instance;
     };
-
-    return {
-      containerStyle,
-      getInstance,
-    };
-  },
-  render() {
-    const { containerStyle } = this;
-    return (
+    ctx.expose({
+      getInstance
+    })
+    return ()=>(
       <div
-        ref="container"
+        ref={containerRef}
         class="echarts-container"
-        style={containerStyle}
+        style={containerStyle.value}
       ></div>
     );
   },
-});
+  {
+    props
+  }
+);

@@ -18,9 +18,7 @@ const props = {
 
 export type BrowserProps = ExtractPropTypes<typeof props>
 
-export const Browser = defineComponent({
-  props,
-  setup(props){
+export const Browser = defineComponent<BrowserProps>((props,ctx)=>{
     const sizeHandle = (val?:number|string)=>{
       if(typeof val === "number"){
         return `${val}px`
@@ -38,15 +36,10 @@ export const Browser = defineComponent({
       }
     })
     const el = useTemplateRef('iframe')
-    return {
-      el,
-      containerStyle,
-      src:props.src
-    }
+    ctx.expose({
+      el
+    })
+    return ()=><iframe ref={el} style={containerStyle.value} src={props.src}  ></iframe>
   },
-  render(){
-    const { containerStyle,src } = this
-
-    return <iframe ref="iframe" style={containerStyle} src={src}  ></iframe>
-  }
-})
+  {props}
+)

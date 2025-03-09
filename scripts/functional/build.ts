@@ -6,6 +6,8 @@ import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { generatorDeclare } from "@mcswift/tsc";
 import { Logger } from "@mcswift/base-utils";
 import { checkImport } from "../utils";
+
+const logger = new Logger(" Build Command ");
 const root = process.cwd();
 const distPath = pathJoin(root, "lib");
 const sourcePath = pathJoin(root, "src/source");
@@ -123,11 +125,11 @@ const appendImport = async () => {
   }
   await Promise.all(tasks);
 };
-const logger = new Logger(" Build Command ");
 export const build = async () => {
+  logger.info("build start")
   preBuild();
   const tasks = tasksGenerator();
-
   await Promise.all(tasks);
   await appendImport();
+  logger.info("build finish")
 };
