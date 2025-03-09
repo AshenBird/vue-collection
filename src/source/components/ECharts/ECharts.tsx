@@ -65,7 +65,7 @@ export const EChartsComponent = defineComponent<EChartsComponentProps>((props,ct
     })
     return ()=>(
       <div
-        ref={containerRef}
+        ref="container"
         class="echarts-container"
         style={containerStyle.value}
       ></div>

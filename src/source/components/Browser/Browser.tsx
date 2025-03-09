@@ -39,7 +39,7 @@ export const Browser = defineComponent<BrowserProps>((props,ctx)=>{
     ctx.expose({
       el
     })
-    return ()=><iframe ref={el} style={containerStyle.value} src={props.src}  ></iframe>
+    return ()=><iframe ref="iframe" style={containerStyle.value} src={props.src}  ></iframe>
   },
   {props}
 )
