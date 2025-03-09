@@ -75,7 +75,7 @@ export const Markdown = defineComponent<MarkdownProps>(
       <style>
         // 兼容参数
         a{${aStyleString}}
-        ${generateStyleText}
+        ${generateStyleText()}
       </style>
       ${parsedContent.value}
     `;
@@ -99,7 +99,7 @@ export const Markdown = defineComponent<MarkdownProps>(
     ctx.expose({
       container:containerRef
     })
-    return () => <div ref={containerRef} class={className}></div>;
+    return () => <div ref="container" class={className}></div>;
   },
   { props }
 );
