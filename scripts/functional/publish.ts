@@ -43,10 +43,10 @@ const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
   if(["fix","opt"].includes(level)){
     patch= (parseInt(patch)+1).toString()
   }else if (level==="feature"){
-    minor=(parseInt(patch)+1).toString()
+    minor=(parseInt(minor)+1).toString()
     patch='0'
   }else{
-    major=(parseInt(patch)+1).toString()
+    major=(parseInt(major)+1).toString()
     minor='0'
     patch='0'
   }
