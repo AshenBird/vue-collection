@@ -1,4 +1,4 @@
-import { marked } from "marked";
+import { Marked, marked } from "marked";
 import {
   computed,
   defineComponent,
@@ -11,6 +11,7 @@ import {
   type PropType,
 } from "vue";
 import { normalizeStyleText } from "../../utils";
+import type { MarkdownTheme } from "./types";
 const props = {
   content: {
     required: true,
@@ -20,9 +21,16 @@ const props = {
     required: false,
     type: [String, Array] as PropType<string | string[]>,
   },
+  /**
+   * @deprecated
+   */
   aStyle:{
     required: false,
     type: [String, Object] as PropType<string | CSSProperties>,
+  },
+  theme:{
+    required: false,
+    type: Object as PropType<MarkdownTheme>,
   }
 } as const;
 
@@ -46,16 +54,26 @@ export const Markdown = defineComponent({
       result.push(...props.className)
       return result
     })
-
-    
+    const baseStyle = "img{max-width: 100%;}"
+    const generateStyleText = ()=>{
+      const styles = props.theme?.styles
+      if(!styles)return baseStyle
+      const result = Object.entries(styles).reduce((r,[tag,style])=>{
+        r.push(`${tag}{${normalizeStyleText(style)}}`)
+        return r
+      },[baseStyle] as string[])
+      return result.join("\n")
+    }
     const mountContent = ()=>{
       const aStyleString = normalizeStyleText(props.aStyle)
+      
       const el = containerRef.value
       if(!el)return
       el.innerHTML = `
         <style>
-          img{max-width: 100%;}
+          // 兼容参数
           a{${aStyleString}}
+          ${generateStyleText}
         </style>
         ${
           parsedContent.value
