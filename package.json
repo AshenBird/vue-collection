@@ -1,6 +1,6 @@
 {
   "name": "@mcswift/vue-collection",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -73,6 +73,14 @@
     "./utils": {
       "import": "./lib/esm/utils/index.js",
       "types": "./lib/types/utils/index.d.ts"
+    },
+    "./components": {
+      "import": "./lib/esm/components/index.js",
+      "types": "./lib/types/components/index.d.ts"
+    },
+    "./naive-ui-extends": {
+      "import": "./lib/esm/components/NaiveUIExtends/index.js",
+      "types": "./lib/types/components/NaiveUIExtends/index.d.ts"
     }
   },
   "files": [
