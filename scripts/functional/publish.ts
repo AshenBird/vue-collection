@@ -8,7 +8,7 @@ import{ spawnSync }from "node:child_process"
 // import Git from "simple-git"
 const logger = new Logger(" Publish Command ")
 const root = process.cwd();
-const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
+const tidy = async (level:"fix"|"opt"|"feature"|"break"|"feat") => {
   const pack = new NpmPackage(root);
   const info = JSON.parse(JSON.stringify(pack.getPackageInfo()));
   // @ts-ignore
@@ -42,7 +42,7 @@ const tidy = async (level:"fix"|"opt"|"feature"|"break") => {
   let [major,minor,patch] = (info.version as string).split('.')
   if(["fix","opt"].includes(level)){
     patch= (parseInt(patch)+1).toString()
-  }else if (level==="feature"){
+  }else if (level==="feature"||level==="feat"){
     minor=(parseInt(minor)+1).toString()
     patch='0'
   }else{
@@ -81,16 +81,16 @@ export const publish = async ()=>{
   /* 获取并整理参数 */
   const [ _nodePath, _scriptPath, ...args ] = process.argv;
   const options = resolveCliOption(args);
-  const updateLevel =  options.level as "fix"|"opt"|"feature"|"break"|undefined
+  const updateLevel =  options.level as "fix"|"opt"|"feature"|"break"|"feat"| undefined
   // const tag =  options.tag as "alpha"|"beta"|"rc"|undefined
   if(!updateLevel){
-    logger.error(`Can't find "level" param, "level" can be "fix"|"opt"|"feature"|"break".`)
+    logger.error(`Can't find "level" param, "level" can be "fix"|"opt"|"feature"|"break"|"feat".`)
     process.exit(0)
     return
   }
-  const levelValues = ["fix","opt","feature","break"]
+  const levelValues = ["fix","opt","feature","break","feat"]
   if(!levelValues.includes(updateLevel)){
-    logger.error(`Illegal level value "${updateLevel}", "level" can be "fix"|"opt"|"feature"|"break".`)
+    logger.error(`Illegal level value "${updateLevel}", "level" can be "fix"|"opt"|"feature"|"break"|"feat".`)
     process.exit(0)
     return
   }

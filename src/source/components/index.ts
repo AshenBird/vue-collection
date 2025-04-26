@@ -2,4 +2,5 @@ export * from "./Browser"
 export * from "./ECharts"
 export * from "./Markdown"
 export * from "./MountProvider"
-
+export { default as Spot} from "./Spot.vue"
+export { default as SplitLine} from "./SplitLine.vue"

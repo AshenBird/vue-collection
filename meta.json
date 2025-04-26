@@ -4,5 +4,8 @@
   "./echarts":"echarts",
   "./mount-provider":"mount-provider",
   "./markdown":"markdown",
-  "./utils":"utils/index"
+  "./utils":"utils/index",
+  "./spot":"spot",
+  "./split-line":"split-line",
+  "./components":"components/index"
 }
