@@ -15,7 +15,7 @@ const props = {
 
 export type SpotProps = ExtractPropTypes<typeof props>;
 
-export const Spot = defineComponent(
+export const Spot = defineComponent<SpotProps>(
   (props) => {
     const themeVars = useThemeVars();
     const colorKey = {

@@ -32,7 +32,7 @@ const props = {
 
 export type SplitLineProps = ExtractPropTypes<typeof props>;
 
-export const SplitLine = defineComponent(
+export const SplitLine = defineComponent<SplitLineProps>(
   (props) => {
     const themeVars = useThemeVars()
     const wrapStyle = computed<CSSProperties>(() => {
