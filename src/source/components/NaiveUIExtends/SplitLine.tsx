@@ -12,7 +12,6 @@ const props = {
   direction: {
     required: false,
     type: String as PropType<"horizontal" | "vertical">,
-    default: "horizontal",
   },
   color: {
     required: false,
@@ -21,19 +20,17 @@ const props = {
   size: {
     required: false,
     type: Number as PropType<number>,
-    default: 1,
   },
   round: {
     required: false,
     type: Boolean as PropType<boolean>,
-    default: false,
   },
 } as const;
 
 export type SplitLineProps = ExtractPropTypes<typeof props>;
 
 export const SplitLine = defineComponent<SplitLineProps>(
-  (props) => {
+  (props ) => {
     const themeVars = useThemeVars()
     const wrapStyle = computed<CSSProperties>(() => {
       const result: CSSProperties = {
@@ -50,12 +47,12 @@ export const SplitLine = defineComponent<SplitLineProps>(
       const backgroundColor = props.color
         ? props.color
         : toValue(themeVars.value.primaryColor); //textColor2
-      const realSize = props.size;
+      const realSize = props.size||1;
       const size = realSize >= 1 ? realSize : 1;
       const radio = realSize >= 1 ? 1 : realSize;
       const base: CSSProperties = {
         backgroundColor,
-        borderRadius: props.round ? `${size}px` : undefined,
+        borderRadius: (props.round||false) ? `${size}px` : undefined,
       };
       if (props.direction === "vertical") {
         return {
@@ -83,6 +80,6 @@ export const SplitLine = defineComponent<SplitLineProps>(
     );
   },
   {
-    props,
+    props
   }
 );

@@ -4,12 +4,10 @@ const props = {
   type: {
     required: false,
     type: String as PropType<"default" | "primary" | "info" | "success" | "warning" | "error">,
-    default: "default",
   },
   size: {
     required: false,
     type: Number as PropType<number>,
-    default: 6,
   },
 } as const;
 
@@ -18,6 +16,7 @@ export type SpotProps = ExtractPropTypes<typeof props>;
 export const Spot = defineComponent<SpotProps>(
   (props) => {
     const themeVars = useThemeVars();
+    const size = computed(()=>props.size||6)
     const colorKey = {
       default:"textColor2",
       primary: "primaryColor",
@@ -32,10 +31,10 @@ export const Spot = defineComponent<SpotProps>(
       alignItems:"center",
     }
     const style = computed<CSSProperties>(() => ({
-      width: `${props.size}px`,
-      height: `${props.size}px`,
+      width: `${size}px`,
+      height: `${size}px`,
       borderRadius: "50%",
-      backgroundColor: toValue(themeVars.value[colorKey[props.type]]),
+      backgroundColor: toValue(themeVars.value[colorKey[props.type||"default"]]),
     }));
     return ()=>(
       <div style={wrapStyle} >
