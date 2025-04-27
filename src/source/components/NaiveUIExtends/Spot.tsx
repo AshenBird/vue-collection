@@ -31,8 +31,8 @@ export const Spot = defineComponent<SpotProps>(
       alignItems:"center",
     }
     const style = computed<CSSProperties>(() => ({
-      width: `${size}px`,
-      height: `${size}px`,
+      width: `${size.value}px`,
+      height: `${size.value}px`,
       borderRadius: "50%",
       backgroundColor: toValue(themeVars.value[colorKey[props.type||"default"]]),
     }));
