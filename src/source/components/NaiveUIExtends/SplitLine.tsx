@@ -4,22 +4,31 @@ import {
   toValue,
   type CSSProperties,
   type ExtractPropTypes,
+  type ExtractPublicPropTypes,
   type PropType,
 } from "vue";
 import { useThemeVars } from "naive-ui";
+import { colorKey } from "./utils";
 
 const props = {
   direction: {
     required: false,
     type: String as PropType<"horizontal" | "vertical">,
+    default:"horizontal"
   },
   color: {
     required: false,
     type: String as PropType<string>,
   },
+  type: {
+    required: false,
+    type: String as PropType<"default" | "primary" | "info" | "success" | "warning" | "error">,
+    default:"default"
+  },
   size: {
     required: false,
     type: Number as PropType<number>,
+    default:1
   },
   round: {
     required: false,
@@ -28,9 +37,11 @@ const props = {
 } as const;
 
 export type SplitLineProps = ExtractPropTypes<typeof props>;
+export type SplitLinePublicProps = ExtractPublicPropTypes<typeof props>;
 
-export const SplitLine = defineComponent<SplitLineProps>(
-  (props ) => {
+export const SplitLine = defineComponent({
+  props,
+  setup:(props ) => {
     const themeVars = useThemeVars()
     const wrapStyle = computed<CSSProperties>(() => {
       const result: CSSProperties = {
@@ -46,8 +57,8 @@ export const SplitLine = defineComponent<SplitLineProps>(
     const style = computed<CSSProperties>(() => {
       const backgroundColor = props.color
         ? props.color
-        : toValue(themeVars.value.primaryColor); //textColor2
-      const realSize = props.size||1;
+        : toValue(themeVars.value[colorKey[props.type||"default"]])
+      const realSize = props.size;
       const size = realSize >= 1 ? realSize : 1;
       const radio = realSize >= 1 ? 1 : realSize;
       const base: CSSProperties = {
@@ -78,8 +89,5 @@ export const SplitLine = defineComponent<SplitLineProps>(
         <div style={style.value}></div>
       </div>
     );
-  },
-  {
-    props
-  }
+  }}
 );
